@@ -18,10 +18,11 @@ body{
 }
 
 .map-container{
-    width: fit-content;
-    height: fit-content;
+    width: 1317px;
+    height: 888px;
     margin: auto;
         border: 3px solid #000;
+        background-image:url("./map.png");
         /* padding: 10px; */
 }
 .google-logo{
