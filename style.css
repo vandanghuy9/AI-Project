@@ -22,13 +22,21 @@ body{
     height: 888px;
     margin: auto;
         border: 3px solid #000;
-        background-image:url("./map.png");
-        /* padding: 10px; */
+        /* background-image:url("./map.png"); */
+        position: relative;
 }
 .google-logo{
     padding: 10px 30% 10px 30%;
 }
 
+#start-point{
+    position: absolute;
+    /* top:100px;
+    left: 400px; */
+    width: 5px;
+    height: 5px;
+    background-color: #35c9eb;
+}
 #input-text{
     width: 50%;
     height: 40px;
@@ -48,4 +56,8 @@ body{
 .co-ordinates{
     color: #000;
     font-size: 35px;
+}
+
+#map{
+    height: 100vh;
 }
