@@ -5,12 +5,12 @@ class Graph {
     this.edge = new Map();
   }
 
-  get getEdge() {
+  getEdge() {
     return this.edge;
   }
   addVertex() {
     for (let d of data) {
-      this.edge.set(d, { edges: [], previous: {} });
+      this.edge.set(d.id, { edges: [], previous: null });
     }
   }
 
@@ -27,19 +27,29 @@ class Graph {
     this.edge.get(w).edges.push(v);
   }
 
-  bfs(startingNode) {
+  bfs(startingNode, endingNode) {
     let queue = [];
     let visited = {};
     queue.push(startingNode);
+    visited[startingNode] = true;
+
     while (queue.length > 0) {
       const node = queue.shift();
-      console.log(node);
-      for (let n in this.edge.get(node)) {
-        if (!visited[n]) {
+      // console.log(node);
+      const edgeVertexs = this.edge.get(node).edges;
+      for (let i = 0; i < edgeVertexs.length; i++) {
+        let n = edgeVertexs[i];
+        if (n === endingNode) {
+          this.edge.get(n).previous = node;
+          return n;
+        }
+        if (visited[n] != true) {
           visited[n] = true;
+          this.edge.get(n).previous = node;
           queue.push(n);
         }
       }
+      // console.log(queue, visited);
     }
   }
 }
@@ -48,62 +58,22 @@ const algo = () => {
   const graph = new Graph();
 
   graph.addVertex();
-  console.log(graph.getEdge.keys);
-  // graph.addEdge(
-  //   {
-  //     id: 2,
-  //     coor: [21.03635, 105.80762],
-  //   },
-  //   {
-  //     id: 3,
-  //     coor: [21.0362, 105.80801],
-  //   }
-  // );
-  // graph.addEdge(
-  //   {
-  //     id: 3,
-  //     coor: [21.0362, 105.80801],
-  //   },
-  //   {
-  //     id: 4,
-  //     coor: [21.03622, 105.80814],
-  //   }
-  // );
-  // graph.addEdge(
-  //   {
-  //     id: 4,
-  //     coor: [21.03622, 105.80814],
-  //   },
-  //   {
-  //     id: 5,
-  //     coor: [21.03621, 105.80836],
-  //   }
-  // );
-  // graph.addEdge(
-  //   {
-  //     id: 4,
-  //     coor: [21.03622, 105.80814],
-  //   },
-  //   {
-  //     id: 6,
-  //     coor: [21.03589, 105.80823],
-  //   }
-  // );
-  // graph.addEdge(
-  //   {
-  //     id: 6,
-  //     coor: [21.03589, 105.80823],
-  //   },
-  //   {
-  //     id: 7,
-  //     coor: [21.03587, 105.8081],
-  //   }
-  // );
+  graph.addEdge(1, 2);
+  graph.addEdge(2, 3);
+  graph.addEdge(3, 4);
+  graph.addEdge(4, 5);
+  graph.addEdge(4, 6);
+  graph.addEdge(6, 7);
+  const foundVertex = graph.bfs(1, 7);
+  let n = foundVertex;
+  let path = [];
+  while (n !== null) {
+    const coor = data.find((d) => d.id === n);
+    path.push(coor.coor);
+    n = graph.getEdge().get(n).previous;
+  }
 
-  // graph.bfs({
-  //   id: 1,
-  //   coor: [21.03673, 105.80696],
-  // });
+  return path;
 };
 
 export { algo };

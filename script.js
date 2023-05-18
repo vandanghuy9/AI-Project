@@ -1,4 +1,5 @@
 import { algo } from "./Graph.js";
+import { data } from "./data.js";
 const start = () => {
   var map = L.map("map").setView([21.035556, 105.807778], 18);
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -21,7 +22,20 @@ const start = () => {
     [21.03793, 105.81339],
   ];
 
-  var path = L.polygon(latlngs, {
+  var boundary = L.polygon(latlngs, {
+    delay: 400,
+    //   dashArray: [10, 20],
+    weight: 2,
+    color: "black",
+    paused: true,
+    reverse: false,
+    fill: false,
+  }).addTo(map);
+  map.addLayer(boundary);
+  map.fitBounds(boundary.getBounds());
+
+  const pathData = algo();
+  const path = L.polyline(pathData, {
     delay: 400,
     //   dashArray: [10, 20],
     weight: 2,
@@ -32,7 +46,6 @@ const start = () => {
   }).addTo(map);
   map.addLayer(path);
   map.fitBounds(path.getBounds());
-  algo();
 };
 
 start();
