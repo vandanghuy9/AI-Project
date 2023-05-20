@@ -1,13 +1,12 @@
-import { algo } from "./Graph.js";
-import { data } from "./data.js";
-const start = () => {
-  var map = L.map("map").setView([21.035556, 105.807778], 18);
-  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution:
-      '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-  }).addTo(map);
-  const marker = L.marker([21.035556, 105.807778]).addTo(map);
+import { algo, drawGraph } from "./Graph.js";
+var map = L.map("map").setView([21.035556, 105.807778], 18);
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom: 19,
+  attribution:
+    '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+}).addTo(map);
+const main = () => {
+  let clickNum;
   const latlngs = [
     [21.03769, 105.80638],
     [21.03595, 105.80576],
@@ -34,6 +33,13 @@ const start = () => {
   map.addLayer(boundary);
   map.fitBounds(boundary.getBounds());
 
+  map.on("dblclick", (e) => {
+    // console.log(e.latlng);
+    const marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+  });
+};
+
+const drawPath = () => {
   const pathData = algo();
   const path = L.polyline(pathData, {
     delay: 400,
@@ -48,4 +54,24 @@ const start = () => {
   map.fitBounds(path.getBounds());
 };
 
-start();
+const drawEntireGraph = () => {
+  const graphData = drawGraph();
+  console.log(graphData);
+  const path = L.polyline(graphData, {
+    delay: 400,
+    //   dashArray: [10, 20],
+    weight: 2,
+    color: "black",
+    paused: true,
+    reverse: false,
+    fill: false,
+  }).addTo(map);
+  map.addLayer(path);
+  map.fitBounds(path.getBounds());
+};
+main();
+drawEntireGraph();
+const removePath = () => {
+  map.removeLayer(path);
+};
+document.addEventListener("click", removePath);
