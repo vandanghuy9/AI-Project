@@ -22,18 +22,25 @@ const drawPath = () => {
 
 const drawEntireGraph = () => {
   const graphData = drawGraph();
-  console.log(graphData);
-  const path = L.polyline(graphData, {
-    delay: 400,
-    //   dashArray: [10, 20],
-    weight: 2,
-    color: "black",
-    paused: true,
-    reverse: false,
-    fill: false,
-  }).addTo(map);
-  map.addLayer(path);
-  map.fitBounds(path.getBounds());
+  // console.log(graphData);
+  // const path = L.polyline(graphData, {
+  //   delay: 400,
+  //   //   dashArray: [10, 20],
+  //   weight: 2,
+  //   color: "black",
+  //   paused: true,
+  //   reverse: false,
+  //   fill: false,
+  // }).addTo(map);
+  // map.addLayer(path);
+  // map.fitBounds(path.getBounds());
+  graphData.forEach(({ id, coor }) => {
+    let popup = L.marker(coor, {
+      title: id
+    }).addTo(map);
+  }
+  )
+
 };
 const main = () => {
   let clickNum;
@@ -67,7 +74,7 @@ const main = () => {
     const marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
   });
 
-  drawPath();
+  drawEntireGraph();
 };
 
 main();

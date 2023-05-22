@@ -53,8 +53,8 @@ class Graph {
     }
   }
   drawGraph() {
-    const graphData = data.map(({ id, coor }) => coor);
-    return graphData;
+    // const graphData = data.map(({ id, coor }) => coor);
+    return data;
   }
 }
 
@@ -106,6 +106,12 @@ const algo = () => {
   graph.addEdge(43, 44);
   graph.addEdge(44, 45);
   graph.addEdge(44, 46);
+  graph.addEdge(41, 47);
+  graph.addEdge(47, 48);
+  graph.addEdge(48, 49);
+  graph.addEdge(49, 50);
+  graph.addEdge(50, 51);
+
   const foundVertex = graph.bfs(1, 46);
   let n = foundVertex;
   let path = [];
