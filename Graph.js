@@ -93,7 +93,20 @@ const algo = () => {
   graph.addEdge(30, 31);
   graph.addEdge(31, 32);
   graph.addEdge(28, 33);
-  const foundVertex = graph.bfs(1, 33);
+  graph.addEdge(27, 34);
+  graph.addEdge(34, 35);
+  graph.addEdge(35, 36);
+  graph.addEdge(34, 37);
+  graph.addEdge(37, 38);
+  graph.addEdge(37, 39);
+  graph.addEdge(39, 40);
+  graph.addEdge(40, 41);
+  graph.addEdge(41, 42);
+  graph.addEdge(42, 43);
+  graph.addEdge(43, 44);
+  graph.addEdge(44, 45);
+  graph.addEdge(44, 46);
+  const foundVertex = graph.bfs(1, 46);
   let n = foundVertex;
   let path = [];
   while (n !== null) {
