@@ -2,6 +2,7 @@
 **** Cách chạy
 - Cài go live extension trên vscode
 - Ấn "Go live"
+
 **** Cách thêm điểm
 - Mở openstreetmap: https://www.openstreetmap.org/relation/11367565#map=17/21.03478/105.81040
 - Chọn các giao điểm trên bản đồ, chuột phải chọn Show address
