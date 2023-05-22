@@ -1,4 +1,5 @@
 import { algo, drawGraph } from "./Graph.js";
+import { data } from "./data.js";
 var map = L.map("map").setView([21.035556, 105.807778], 18);
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
@@ -62,11 +63,15 @@ const main = () => {
   }).addTo(map);
   map.addLayer(boundary);
   map.fitBounds(boundary.getBounds());
+  for (let i = 0; i < data.length; i++) {
+    let marker = L.marker(data[i].coor, { title: data[i].id }).addTo(map);
+  }
   map.on("dblclick", (e) => {
     // console.log(e.latlng);
     const marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
   });
 
+  // drawEntireGraph();
   drawPath();
 };
 

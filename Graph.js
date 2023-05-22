@@ -23,8 +23,15 @@ class Graph {
   }
 
   addEdge(v, w) {
-    this.edge.get(v).edges.push(w);
-    this.edge.get(w).edges.push(v);
+    const startingNode = this.getVertexByID(v);
+    const endingNode = this.getVertexByID(w);
+    const x =
+      Math.pow(endingNode.coor[0], 2) - Math.pow(startingNode.coor[0], 2);
+    const y =
+      Math.pow(endingNode.coor[1], 2) - Math.pow(startingNode.coor[1], 2);
+    const weight = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+    this.edge.get(v).edges.push({ w, weight });
+    this.edge.get(w).edges.push({ w: v, weight });
   }
 
   bfs(startingNode, endingNode) {
@@ -38,7 +45,7 @@ class Graph {
       // console.log(node);
       const edgeVertexs = this.edge.get(node).edges;
       for (let i = 0; i < edgeVertexs.length; i++) {
-        let n = edgeVertexs[i];
+        let n = edgeVertexs[i].w;
         if (n === endingNode) {
           this.edge.get(n).previous = node;
           return n;
@@ -106,7 +113,7 @@ const algo = () => {
   graph.addEdge(43, 44);
   graph.addEdge(44, 45);
   graph.addEdge(44, 46);
-  const foundVertex = graph.bfs(1, 46);
+  const foundVertex = graph.bfs(1, 21);
   let n = foundVertex;
   let path = [];
   while (n !== null) {
@@ -123,3 +130,4 @@ const drawGraph = () => {
   return graph.drawGraph();
 };
 export { algo, drawGraph };
+// [[a],[b],[c]]
