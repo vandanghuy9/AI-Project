@@ -42,7 +42,8 @@ const drawEntireGraph = () => {
   });
 };
 const main = () => {
-  let clickNum;
+  let clickNum = 0;
+  let userCoor = [];
   const latlngs = [
     [21.03769, 105.80638],
     [21.03595, 105.80576],
@@ -68,14 +69,16 @@ const main = () => {
   }).addTo(map);
   map.addLayer(boundary);
   map.fitBounds(boundary.getBounds());
-  for (let i = 0; i < data.length; i++) {
-    let marker = L.marker(data[i].coor, { title: data[i].id }).addTo(map);
-  }
   map.on("dblclick", (e) => {
-    // console.log(e.latlng);
     const marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+    if (clickNum <= 2){
+      clickNum++;
+      
+    }
+
   });
 
+  drawEntireGraph();
   drawPath();
 };
 

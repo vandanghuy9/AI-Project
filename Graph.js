@@ -113,7 +113,13 @@ const algo = () => {
   graph.addEdge(43, 44);
   graph.addEdge(44, 45);
   graph.addEdge(44, 46);
-  const foundVertex = graph.bfs(1, 21);
+  graph.addEdge(41, 47);
+  graph.addEdge(47, 48);
+  graph.addEdge(48, 49);
+  graph.addEdge(49, 50);
+  graph.addEdge(50, 51);
+  graph.addEdge(51, 52);
+  const foundVertex = graph.bfs(32, 46);
   let n = foundVertex;
   let path = [];
   while (n !== null) {
