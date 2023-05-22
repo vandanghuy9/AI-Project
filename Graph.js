@@ -60,8 +60,8 @@ class Graph {
     }
   }
   drawGraph() {
-    const graphData = data.map(({ id, coor }) => coor);
-    return graphData;
+    // const graphData = data.map(({ id, coor }) => coor);
+    return data;
   }
 }
 
