@@ -1,4 +1,4 @@
-import { algo, drawGraph } from "./Graph.js";
+import { algo, drawGraph, getVertex } from "./Graph.js";
 import { data } from "./data.js";
 var map = L.map("map").setView([21.035556, 105.807778], 18);
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -7,8 +7,27 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 }).addTo(map);
 
-const drawPath = () => {
-  const pathData = algo();
+const findClosestVertex = ([lat, lng]) => {
+  let foundVertex = {};
+  let distance = 20;
+  for (let i = 0; i < data.length; i++) {
+    const x = data[i].coor[0] - lat;
+    const y = data[i].coor[1] - lng;
+    const checkDistance = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+    // console.log(checkDistance);
+    if (checkDistance < distance) {
+      foundVertex = { ...data[i] };
+      distance = checkDistance;
+    }
+  }
+  return foundVertex;
+};
+const drawPath = ([a, b]) => {
+  const startingNode = findClosestVertex(a);
+  const endingNode = findClosestVertex(b);
+  const pathData = algo(startingNode.id, endingNode.id);
+  pathData.unshift(b);
+  pathData.push(a);
   const path = L.polyline(pathData, {
     delay: 400,
     weight: 2,
@@ -22,7 +41,7 @@ const drawPath = () => {
 };
 
 const drawEntireGraph = () => {
-  const graphData = drawGraph();
+  const graphData = getVertex();
   // console.log(graphData);
   // const path = L.polyline(graphData, {
   //   delay: 400,
@@ -71,15 +90,14 @@ const main = () => {
   map.fitBounds(boundary.getBounds());
   map.on("dblclick", (e) => {
     const marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
-    if (clickNum <= 2){
-      clickNum++;
-      
+    clickNum++;
+    userCoor.push([e.latlng.lat, e.latlng.lng]);
+    if (clickNum === 2) {
+      drawPath(userCoor);
     }
-
   });
 
   drawEntireGraph();
-  drawPath();
 };
 
 main();

@@ -25,10 +25,8 @@ class Graph {
   addEdge(v, w) {
     const startingNode = this.getVertexByID(v);
     const endingNode = this.getVertexByID(w);
-    const x =
-      Math.pow(endingNode.coor[0], 2) - Math.pow(startingNode.coor[0], 2);
-    const y =
-      Math.pow(endingNode.coor[1], 2) - Math.pow(startingNode.coor[1], 2);
+    const x = endingNode.coor[0] - startingNode.coor[0];
+    const y = endingNode.coor[1] - startingNode.coor[1];
     const weight = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     this.edge.get(v).edges.push({ w, weight });
     this.edge.get(w).edges.push({ w: v, weight });
@@ -63,10 +61,15 @@ class Graph {
     // const graphData = data.map(({ id, coor }) => coor);
     return data;
   }
+  getVertex() {
+    return data;
+  }
+
+  shortestPath(startingNode, endingNode) {}
 }
 
 const graph = new Graph();
-const algo = () => {
+const algo = (startingNode, endingNode) => {
   graph.addVertex();
   graph.addEdge(1, 2);
   graph.addEdge(2, 3);
@@ -119,7 +122,7 @@ const algo = () => {
   graph.addEdge(49, 50);
   graph.addEdge(50, 51);
   graph.addEdge(51, 52);
-  const foundVertex = graph.bfs(32, 46);
+  const foundVertex = graph.bfs(startingNode, endingNode);
   let n = foundVertex;
   let path = [];
   while (n !== null) {
@@ -135,5 +138,6 @@ const algo = () => {
 const drawGraph = () => {
   return graph.drawGraph();
 };
-export { algo, drawGraph };
+const getVertex = () => graph.getVertex();
+export { algo, drawGraph, getVertex };
 // [[a],[b],[c]]
