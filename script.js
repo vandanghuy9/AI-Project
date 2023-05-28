@@ -26,6 +26,7 @@ const findClosestVertex = ([lat, lng]) => {
 const drawPath = ([a, b]) => {
   const startingNode = findClosestVertex(a);
   const endingNode = findClosestVertex(b);
+  // console.log(startingNode, endingNode);
   const pathData = algo(startingNode.id, endingNode.id);
   pathData.unshift(b);
   pathData.push(a);

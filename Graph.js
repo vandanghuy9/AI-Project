@@ -3,7 +3,6 @@ class Graph {
   constructor() {
     this.vertex = data.length;
     this.edge = new Map();
-    this.addVertex = [];
   }
 
   getEdge() {
@@ -41,7 +40,6 @@ class Graph {
 
     while (queue.length > 0) {
       const node = queue.shift();
-      // console.log(node);
       const edgeVertexs = this.edge.get(node).edges;
       for (let i = 0; i < edgeVertexs.length; i++) {
         let n = edgeVertexs[i].w;
@@ -55,7 +53,6 @@ class Graph {
           queue.push(n);
         }
       }
-      // console.log(queue, visited);
     }
   }
   getVertex() {
@@ -254,14 +251,33 @@ const algo = (startingNode, endingNode) => {
   graph.addEdge(141, 144);
   //
   graph.addEdge(72, 175);
+  graph.addEdge(175, 124);
+  graph.addEdge(175, 73);
+  graph.addEdge(73, 74);
+  graph.addEdge(124, 108);
+  graph.addEdge(108, 74);
+  graph.addEdge(74, 75);
+  graph.addEdge(75, 76);
+  graph.addEdge(75, 77);
+  // ngo 294
+  graph.addEdge(118, 119);
+  graph.addEdge(119, 120);
+
+  // ngõ 266
+  graph.addEdge(121, 122);
+  graph.addEdge(122, 123);
+  // ngo 2 nguyen van ngoc
+  graph.addEdge(17, 161);
 
   const foundVertex = graph.bfs(startingNode, endingNode);
+
   let n = foundVertex;
+  console.log(n);
   let path = [];
   while (n !== null) {
     const coor = data.find((d) => d.id === n);
+
     path.push(coor.coor);
-    // console.log(coor);
     n = graph.getEdge().get(n).previous;
   }
 
