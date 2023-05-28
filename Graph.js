@@ -3,6 +3,7 @@ class Graph {
   constructor() {
     this.vertex = data.length;
     this.edge = new Map();
+    this.addVertex = [];
   }
 
   getEdge() {
@@ -56,10 +57,6 @@ class Graph {
       }
       // console.log(queue, visited);
     }
-  }
-  drawGraph() {
-    const graphData = data.map(({ id, coor }) => coor);
-    return graphData;
   }
   getVertex() {
     return data;
@@ -244,6 +241,19 @@ const algo = (startingNode, endingNode) => {
   graph.addEdge(135, 137);
   graph.addEdge(137, 139);
   graph.addEdge(142, 139);
+  graph.addEdge(131, 132);
+  graph.addEdge(132, 174);
+  graph.addEdge(134, 174);
+  graph.addEdge(135, 136);
+  graph.addEdge(174, 136);
+  graph.addEdge(136, 138);
+  graph.addEdge(137, 138);
+  graph.addEdge(138, 140);
+  graph.addEdge(139, 140);
+  graph.addEdge(140, 141);
+  graph.addEdge(141, 144);
+  //
+  graph.addEdge(72, 175);
 
   const foundVertex = graph.bfs(startingNode, endingNode);
   let n = foundVertex;
@@ -258,9 +268,6 @@ const algo = (startingNode, endingNode) => {
   return path;
 };
 
-const drawGraph = () => {
-  return graph.drawGraph();
-};
 const getVertex = () => graph.getVertex();
-export { algo, drawGraph, getVertex };
+export { algo, getVertex };
 // [[a],[b],[c]]

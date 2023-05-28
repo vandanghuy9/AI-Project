@@ -1,5 +1,5 @@
-import { algo, drawGraph, getVertex } from "./Graph.js";
-import { data } from "./data.js";
+import { algo, getVertex } from "./Graph.js";
+// import { data } from "./data.js";
 var map = L.map("map").setView([21.035556, 105.807778], 18);
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
@@ -8,6 +8,7 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
 }).addTo(map);
 
 const findClosestVertex = ([lat, lng]) => {
+  const data = getVertex();
   let foundVertex = {};
   let distance = 20;
   for (let i = 0; i < data.length; i++) {
