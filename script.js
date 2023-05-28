@@ -41,7 +41,7 @@ const drawPath = ([a, b]) => {
 };
 
 const drawEntireGraph = () => {
-  const graphData = getVertex();
+  // const graphData = drawGraph();
   // console.log(graphData);
   // const path = L.polyline(graphData, {
   //   delay: 400,
@@ -54,7 +54,8 @@ const drawEntireGraph = () => {
   // }).addTo(map);
   // map.addLayer(path);
   // map.fitBounds(path.getBounds());
-  graphData.forEach(({ id, coor }) => {
+  const vertexData = getVertex();
+  vertexData.forEach(({ id, coor }) => {
     let popup = L.marker(coor, {
       title: id,
     }).addTo(map);

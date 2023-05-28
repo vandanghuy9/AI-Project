@@ -58,8 +58,8 @@ class Graph {
     }
   }
   drawGraph() {
-    // const graphData = data.map(({ id, coor }) => coor);
-    return data;
+    const graphData = data.map(({ id, coor }) => coor);
+    return graphData;
   }
   getVertex() {
     return data;
@@ -122,6 +122,129 @@ const algo = (startingNode, endingNode) => {
   graph.addEdge(49, 50);
   graph.addEdge(50, 51);
   graph.addEdge(51, 52);
+  graph.addEdge(16, 153);
+  graph.addEdge(153, 154);
+  graph.addEdge(154, 155);
+  graph.addEdge(155, 156);
+  graph.addEdge(155, 156);
+  graph.addEdge(156, 157);
+  graph.addEdge(157, 158);
+  graph.addEdge(158, 159);
+  graph.addEdge(159, 160);
+  graph.addEdge(159, 170);
+  graph.addEdge(169, 170);
+  graph.addEdge(158, 169);
+  //
+  graph.addEdge(17, 161);
+  graph.addEdge(168, 169);
+  graph.addEdge(167, 168);
+  graph.addEdge(166, 167);
+  graph.addEdge(165, 166);
+  graph.addEdge(164, 168);
+  graph.addEdge(163, 164);
+  graph.addEdge(163, 167);
+  graph.addEdge(161, 163);
+  graph.addEdge(161, 165);
+  //
+  graph.addEdge(5, 103);
+  graph.addEdge(102, 103);
+  graph.addEdge(94, 102);
+  graph.addEdge(91, 92);
+  graph.addEdge(87, 91);
+  graph.addEdge(86, 87);
+  graph.addEdge(87, 88);
+  graph.addEdge(88, 89);
+  graph.addEdge(88, 90);
+  graph.addEdge(95, 96);
+  //
+  graph.addEdge(85, 86);
+  graph.addEdge(85, 101);
+  graph.addEdge(101, 97);
+  graph.addEdge(97, 171);
+  graph.addEdge(12, 171);
+  graph.addEdge(94, 172);
+  graph.addEdge(95, 172);
+  graph.addEdge(95, 96);
+
+  //
+  graph.addEdge(85, 82);
+  graph.addEdge(98, 101);
+  graph.addEdge(82, 83);
+  graph.addEdge(83, 84);
+  graph.addEdge(81, 82);
+  graph.addEdge(80, 81);
+  graph.addEdge(79, 80);
+  graph.addEdge(78, 79);
+  graph.addEdge(65, 78);
+  graph.addEdge(64, 65);
+  graph.addEdge(64, 56);
+  graph.addEdge(53, 56);
+  graph.addEdge(53, 54);
+  graph.addEdge(54, 55);
+  graph.addEdge(16, 55);
+  graph.addEdge(14, 60);
+  graph.addEdge(54, 60);
+  graph.addEdge(60, 61);
+  graph.addEdge(61, 62);
+  graph.addEdge(62, 109);
+  graph.addEdge(109, 107);
+  graph.addEdge(106, 107);
+  graph.addEdge(105, 106);
+  graph.addEdge(105, 104);
+  graph.addEdge(100, 104);
+  graph.addEdge(99, 173);
+  graph.addEdge(98, 173);
+  graph.addEdge(98, 101);
+  graph.addEdge(56, 63);
+  graph.addEdge(53, 59);
+  graph.addEdge(54, 57);
+  graph.addEdge(59, 57);
+  graph.addEdge(57, 58);
+  graph.addEdge(58, 56);
+  graph.addEdge(55, 56);
+  graph.addEdge(63, 66);
+  graph.addEdge(78, 66);
+  graph.addEdge(66, 67);
+  //
+  graph.addEdge(67, 111);
+  graph.addEdge(111, 110);
+  graph.addEdge(111, 114);
+  graph.addEdge(113, 114);
+  graph.addEdge(112, 113);
+  graph.addEdge(110, 112);
+  graph.addEdge(112, 115);
+  graph.addEdge(68, 116);
+  graph.addEdge(116, 117);
+  graph.addEdge(68, 70);
+  graph.addEdge(70, 126);
+  graph.addEdge(126, 127);
+  graph.addEdge(10, 125);
+  graph.addEdge(125, 72);
+  graph.addEdge(72, 128);
+  graph.addEdge(126, 128);
+  graph.addEdge(128, 129);
+  graph.addEdge(127, 129);
+  graph.addEdge(129, 142);
+  graph.addEdge(142, 147);
+  graph.addEdge(142, 144);
+  graph.addEdge(20, 144);
+  graph.addEdge(146, 147);
+  graph.addEdge(146, 149);
+  graph.addEdge(148, 149);
+  graph.addEdge(149, 150);
+  graph.addEdge(150, 152);
+  graph.addEdge(18, 152);
+  graph.addEdge(128, 130);
+  graph.addEdge(129, 133);
+  graph.addEdge(130, 133);
+  graph.addEdge(130, 131);
+  graph.addEdge(133, 134);
+  graph.addEdge(131, 134);
+  graph.addEdge(134, 135);
+  graph.addEdge(135, 137);
+  graph.addEdge(137, 139);
+  graph.addEdge(142, 139);
+
   const foundVertex = graph.bfs(startingNode, endingNode);
   let n = foundVertex;
   let path = [];
