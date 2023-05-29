@@ -1,4 +1,5 @@
-import { algo, getVertex } from "./Graph.js";
+import { getVertex } from "./Graph.js";
+import { algo } from "./GraphAdvanced.js";
 // import { data } from "./data.js";
 var map = L.map("map").setView([21.035556, 105.807778], 18);
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
