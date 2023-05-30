@@ -61,7 +61,7 @@ const drawEdge = ([a, b]) => {
   const path = L.polyline(pathData, {
     delay: 400,
     weight: 2,
-    color: "black",
+    color: "green",
     paused: true,
     reverse: false,
     fill: false,
