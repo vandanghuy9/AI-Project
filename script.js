@@ -1,6 +1,14 @@
 import { getVertex } from "./Graph.js";
 import { algo } from "./GraphAdvanced.js";
-// import { data } from "./data.js";
+import { data } from "./data.js";
+let edges;
+const edgeUrl = "./edge.json";
+function getEdge(edgeUrl, cb) {
+  fetch(edgeUrl)
+    .then((response) => response.json())
+    .then((result) => cb(result));
+}
+// console.log(edges);
 var map = L.map("map").setView([21.035556, 105.807778], 18);
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
@@ -25,6 +33,25 @@ const findClosestVertex = ([lat, lng]) => {
   return foundVertex;
 };
 const drawPath = ([a, b]) => {
+  const startingNode = findClosestVertex(a);
+  const endingNode = findClosestVertex(b);
+  // console.log(startingNode, endingNode);
+  const pathData = algo(startingNode.id, endingNode.id);
+  pathData.unshift(b);
+  pathData.push(a);
+  const path = L.polyline(pathData, {
+    delay: 400,
+    weight: 2,
+    color: "black",
+    paused: true,
+    reverse: false,
+    fill: false,
+  }).addTo(map);
+  map.addLayer(path);
+  map.fitBounds(path.getBounds());
+};
+
+const drawEdge = ([a, b]) => {
   const startingNode = findClosestVertex(a);
   const endingNode = findClosestVertex(b);
   // console.log(startingNode, endingNode);
@@ -102,6 +129,14 @@ const main = () => {
   });
 
   drawEntireGraph();
+  console.log("helo");
+  getEdge(edgeUrl, (res) => {
+    edges = res;
+    edges.forEach((edge) => {
+      console.log(edge);
+      console.log(data);
+      drawEdge(edge);
+    });
+  });
 };
-
 main();
