@@ -129,17 +129,16 @@ const main = () => {
   });
 
   drawEntireGraph();
-  console.log("helo");
-  console.log(data);
+  // console.log("helo");
+  // console.log(data);
   getEdge(edgeUrl, (res) => {
     edges = res;
     edges.forEach((edge) => {
-      console.log(edge);
-      let coor1 = data.find(vertex => vertex.id === edge[0]).coor
-      let coor2 = data.find(vertex => vertex.id === edge[1]).coor
-      drawEdge([coor1, coor2])
+      // console.log(edge);
+      let coor1 = data.find((vertex) => vertex.id === edge[0]).coor;
+      let coor2 = data.find((vertex) => vertex.id === edge[1]).coor;
+      drawEdge([coor1, coor2]);
     });
   });
 };
 main();
- 

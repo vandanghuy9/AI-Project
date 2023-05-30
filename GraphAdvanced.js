@@ -108,7 +108,7 @@ class GraphAdvanced {
     const endingNode = this.getVertexByID(endingNodeID);
     const d1 = Math.abs(startingNode.coor[0] - endingNode.coor[0]);
     const d2 = Math.abs(endingNode.coor[1] - endingNode.coor[1]);
-    console.log(d1 + d2);
+    // console.log(d1 + d2);
     return d1 + d2;
   }
   getVertex() {
