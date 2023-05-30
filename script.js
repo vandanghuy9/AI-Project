@@ -84,12 +84,12 @@ const drawEntireGraph = () => {
   // }).addTo(map);
   // map.addLayer(path);
   // map.fitBounds(path.getBounds());
-  const vertexData = getVertex();
-  vertexData.forEach(({ id, coor }) => {
-    let popup = L.marker(coor, {
-      title: id,
-    }).addTo(map);
-  });
+  // const vertexData = getVertex();
+  // vertexData.forEach(({ id, coor }) => {
+  //   let popup = L.marker(coor, {
+  //     title: id,
+  //   }).addTo(map);
+  // });
 };
 const main = () => {
   let clickNum = 0;
@@ -133,12 +133,12 @@ const main = () => {
   // console.log(data);
   getEdge(edgeUrl, (res) => {
     edges = res;
-    edges.forEach((edge) => {
-      // console.log(edge);
-      let coor1 = data.find((vertex) => vertex.id === edge[0]).coor;
-      let coor2 = data.find((vertex) => vertex.id === edge[1]).coor;
-      drawEdge([coor1, coor2]);
-    });
+    // edges.forEach((edge) => {
+    //   // console.log(edge);
+    //   let coor1 = data.find((vertex) => vertex.id === edge[0]).coor;
+    //   let coor2 = data.find((vertex) => vertex.id === edge[1]).coor;
+    //   drawEdge([coor1, coor2]);
+    // });
   });
 };
 main();
