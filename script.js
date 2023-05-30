@@ -61,7 +61,7 @@ const drawEdge = ([a, b]) => {
   const path = L.polyline(pathData, {
     delay: 400,
     weight: 2,
-    color: "black",
+    color: "green",
     paused: true,
     reverse: false,
     fill: false,
@@ -129,8 +129,8 @@ const main = () => {
   });
 
   drawEntireGraph();
-  console.log("helo");
-  console.log(data);
+  // console.log("helo");
+  // console.log(data);
   getEdge(edgeUrl, (res) => {
     edges = res;
     edges.forEach((edge) => {
