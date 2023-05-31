@@ -1,7 +1,10 @@
 import { getVertex } from "./Graph.js";
 import { algo } from "./GraphAdvanced.js";
-import { data } from "./data.js";
 let edges;
+let clickNum = 0;
+let userCoor = [],
+  marker = [];
+let path;
 const edgeUrl = "./edge.json";
 function getEdge(edgeUrl, cb) {
   fetch(edgeUrl)
@@ -32,6 +35,7 @@ const findClosestVertex = ([lat, lng]) => {
   }
   return foundVertex;
 };
+
 const drawPath = ([a, b]) => {
   const startingNode = findClosestVertex(a);
   const endingNode = findClosestVertex(b);
@@ -39,7 +43,7 @@ const drawPath = ([a, b]) => {
   const pathData = algo(startingNode.id, endingNode.id);
   pathData.unshift(b);
   pathData.push(a);
-  const path = L.polyline(pathData, {
+  path = L.polyline(pathData, {
     delay: 400,
     weight: 2,
     color: "black",
@@ -52,12 +56,8 @@ const drawPath = ([a, b]) => {
 };
 
 const drawEdge = ([a, b]) => {
-  const startingNode = findClosestVertex(a);
-  const endingNode = findClosestVertex(b);
-  // console.log(startingNode, endingNode);
-  const pathData = algo(startingNode.id, endingNode.id);
-  pathData.unshift(b);
-  pathData.push(a);
+  const pathData = [a, b];
+  // console.log(pathData);
   const path = L.polyline(pathData, {
     delay: 400,
     weight: 2,
@@ -71,29 +71,14 @@ const drawEdge = ([a, b]) => {
 };
 
 const drawEntireGraph = () => {
-  // const graphData = drawGraph();
-  // console.log(graphData);
-  // const path = L.polyline(graphData, {
-  //   delay: 400,
-  //   //   dashArray: [10, 20],
-  //   weight: 2,
-  //   color: "black",
-  //   paused: true,
-  //   reverse: false,
-  //   fill: false,
-  // }).addTo(map);
-  // map.addLayer(path);
-  // map.fitBounds(path.getBounds());
-  // const vertexData = getVertex();
-  // vertexData.forEach(({ id, coor }) => {
-  //   let popup = L.marker(coor, {
-  //     title: id,
-  //   }).addTo(map);
-  // });
+  const vertexData = getVertex();
+  vertexData.forEach(({ id, coor }) => {
+    let popup = L.marker(coor, {
+      title: id,
+    }).addTo(map);
+  });
 };
 const main = () => {
-  let clickNum = 0;
-  let userCoor = [];
   const latlngs = [
     [21.03769, 105.80638],
     [21.03595, 105.80576],
@@ -120,7 +105,7 @@ const main = () => {
   map.addLayer(boundary);
   map.fitBounds(boundary.getBounds());
   map.on("dblclick", (e) => {
-    const marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+    marker[clickNum] = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
     clickNum++;
     userCoor.push([e.latlng.lat, e.latlng.lng]);
     if (clickNum === 2) {
@@ -128,18 +113,25 @@ const main = () => {
     }
   });
 
-  drawEntireGraph();
-  // console.log("helo");
-  // console.log(data);
-  getEdge(edgeUrl, (res) => {
-    edges = res;
-    console.log(edges.length);
-    edges.forEach((edge) => {
-      // console.log(edge);
-      let coor1 = data.find((vertex) => vertex.id === edge[0]).coor;
-      let coor2 = data.find((vertex) => vertex.id === edge[1]).coor;
-      drawEdge([coor1, coor2]);
-    });
-  });
+  // drawEntireGraph();
+  // getEdge(edgeUrl, (res) => {
+  //   edges = res;
+  //   const data = getVertex();
+  //   edges.forEach((edge) => {
+  //     let coor1 = data.find((vertex) => vertex.id === edge[0]).coor;
+  //     let coor2 = data.find((vertex) => vertex.id === edge[1]).coor;
+  //     drawEdge([coor1, coor2]);
+  //   });
+  // });
 };
 main();
+document.getElementById("btn").onclick = () => {
+  if (map.hasLayer(path)) {
+    map.removeLayer(path);
+    map.removeLayer(marker[0]);
+    map.removeLayer(marker[1]);
+    clickNum = 0;
+    userCoor = [];
+    marker = [];
+  }
+};

@@ -78,7 +78,7 @@ const algo = (startingNode, endingNode) => {
   let n = foundVertex;
   console.log(n);
   let path = [];
-  while (n !== null) {
+  while (n !== null && n !== undefined) {
     const coor = data.find((d) => d.id === n);
 
     path.push(coor.coor);

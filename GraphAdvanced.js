@@ -44,7 +44,38 @@ class GraphAdvanced {
     // console.log(vertex);
     return this.edge.get(vertex).f;
   }
+  bfs(startingNode, endingNode) {
+    let queue = [];
+    let visited = {};
+    queue.push(startingNode);
+    visited[startingNode] = true;
 
+    while (queue.length > 0) {
+      const node = queue.shift();
+      const edgeVertexs = this.edge.get(node).edges;
+      for (let i = 0; i < edgeVertexs.length; i++) {
+        let n = edgeVertexs[i].w;
+        if (n === endingNode) {
+          this.edge.get(n).previous = node;
+          let foundVertex = n;
+          let path = [];
+          while (foundVertex !== null && foundVertex !== undefined) {
+            const coor = data.find((d) => d.id === foundVertex);
+
+            path.push(coor.coor);
+            foundVertex = graph.getEdge().get(foundVertex).previous;
+          }
+
+          return path;
+        }
+        if (visited[n] != true) {
+          visited[n] = true;
+          this.edge.get(n).previous = node;
+          queue.push(n);
+        }
+      }
+    }
+  }
   popOpenList(openList, id) {
     return openList.filter((node) => node !== id);
   }
