@@ -89,12 +89,12 @@ class GraphAdvanced {
       for (let i = 0; i < openList.length; i++) {
         const tmpNode = this.getF(openList[i]);
         const lowestNode = this.getF(openList[lowestIndex]);
-        if (tmpNode < lowestNode) {
+        if (tmpNode <= lowestNode) {
           lowestIndex = i;
         }
       }
       const currentNode = openList[lowestIndex]; // the next node is the node that has the lowest f(x)
-      // console.log(currentNode);
+      console.log(currentNode);
       if (currentNode === endingNode) {
         let n = currentNode;
         let path = [];

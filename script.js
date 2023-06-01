@@ -39,7 +39,8 @@ const findClosestVertex = ([lat, lng]) => {
 const drawPath = ([a, b]) => {
   const startingNode = findClosestVertex(a);
   const endingNode = findClosestVertex(b);
-  // console.log(startingNode, endingNode);
+
+  console.log(startingNode, endingNode);
   const pathData = algo(startingNode.id, endingNode.id);
   pathData.unshift(b);
   pathData.push(a);
@@ -113,25 +114,26 @@ const main = () => {
     }
   });
 
-  // drawEntireGraph();
-  // getEdge(edgeUrl, (res) => {
-  //   edges = res;
-  //   const data = getVertex();
-  //   edges.forEach((edge) => {
-  //     let coor1 = data.find((vertex) => vertex.id === edge[0]).coor;
-  //     let coor2 = data.find((vertex) => vertex.id === edge[1]).coor;
-  //     drawEdge([coor1, coor2]);
-  //   });
-  // });
+  drawEntireGraph();
+  getEdge(edgeUrl, (res) => {
+    edges = res;
+    const data = getVertex();
+    edges.forEach((edge) => {
+      console.log(edge);
+      let coor1 = data.find((vertex) => vertex.id === edge[0]).coor;
+      let coor2 = data.find((vertex) => vertex.id === edge[1]).coor;
+      drawEdge([coor1, coor2]);
+    });
+  });
+  document.getElementById("btn").onclick = () => {
+    if (map.hasLayer(path)) {
+      map.removeLayer(path);
+      map.removeLayer(marker[0]);
+      map.removeLayer(marker[1]);
+      clickNum = 0;
+      userCoor = [];
+      marker = [];
+    }
+  };
 };
 main();
-document.getElementById("btn").onclick = () => {
-  if (map.hasLayer(path)) {
-    map.removeLayer(path);
-    map.removeLayer(marker[0]);
-    map.removeLayer(marker[1]);
-    clickNum = 0;
-    userCoor = [];
-    marker = [];
-  }
-};
