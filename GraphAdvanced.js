@@ -6,7 +6,7 @@ fetch("./edge.json", { method: "GET" })
     edges = data;
     // console.log(edges);
   });
-class GraphAdvanced {
+class Graph {
   constructor() {
     this.vertex = data.length;
     this.edge = new Map();
@@ -30,13 +30,19 @@ class GraphAdvanced {
   }
 
   addEdge(v, w) {
+    const oneWayVertex = [
+      283, 257, 258, 259, 260, 261, 262, 202, 47, 48, 49, 50, 301, 306, 307,
+      308, 313, 314, 315, 316,
+    ];
     const startingNode = this.getVertexByID(v);
     const endingNode = this.getVertexByID(w);
     const x = endingNode.coor[0] - startingNode.coor[0];
     const y = endingNode.coor[1] - startingNode.coor[1];
     const weight = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     this.edge.get(v).edges.push({ w, weight });
-    this.edge.get(w).edges.push({ w: v, weight });
+    if (!oneWayVertex.includes(v)) {
+      this.edge.get(w).edges.push({ w: v, weight });
+    }
   }
   getF(vertex) {
     // get f(x) of a vertex
@@ -63,7 +69,7 @@ class GraphAdvanced {
             const coor = data.find((d) => d.id === foundVertex);
 
             path.push(coor.coor);
-            foundVertex = graph.getEdge().get(foundVertex).previous;
+            foundVertex = this.edge.get(foundVertex).previous;
           }
 
           return path;
@@ -94,7 +100,7 @@ class GraphAdvanced {
         }
       }
       const currentNode = openList[lowestIndex]; // the next node is the node that has the lowest f(x)
-      console.log(currentNode);
+      // console.log(currentNode);
       if (currentNode === endingNode) {
         let n = currentNode;
         let path = [];
@@ -108,23 +114,24 @@ class GraphAdvanced {
       openList = this.popOpenList([...openList], openList[lowestIndex]);
       closedList.push(currentNode);
       const neighbors = this.edge.get(currentNode).edges;
-      // console.log(neighbors);
       for (let i = 0; i < neighbors.length; i++) {
         const neighbor = neighbors[i].w;
 
-        if (closedList.indexOf(neighbor) === -1) {
-          let gScore = this.edge.get(currentNode).g;
-          let gScoreIsBest = false;
-          if (openList.indexOf(neighbor) === -1) {
+        if (!closedList.includes(neighbor)) {
+          //every visited node has the best f -> no need to return
+          let gScore = this.edge.get(currentNode).g + neighbors[i].weight; // g(n-1)+c(n-1,n)
+          let gScoreIsBest = false; // flag to check whether or not g(n) is the best for child's node
+          if (!openList.includes(neighbor)) {
             gScoreIsBest = true;
             this.edge.get(neighbor).h = this.heuristic(neighbor, endingNode);
             openList.push(neighbor);
           } else if (gScore < this.edge.get(neighbor).g) {
+            // if distance from start -> parent -> child < start -> child => found a new road to child
             gScoreIsBest = true;
           }
           if (gScoreIsBest) {
-            this.edge.get(neighbor).previous = currentNode;
-            this.edge.get(neighbor).g = gScore + neighbors[i].weight;
+            this.edge.get(neighbor).previous = currentNode; // child's previous node is visited parent node
+            this.edge.get(neighbor).g = gScore;
             this.edge.get(neighbor).f =
               this.edge.get(neighbor).g + this.edge.get(neighbor).h;
           }
@@ -147,14 +154,15 @@ class GraphAdvanced {
   }
 }
 
-const graph = new GraphAdvanced();
 const algo = (startingNode, endingNode) => {
+  const graph = new Graph();
   graph.addVertex();
   edges.forEach((edge) => {
     graph.addEdge(...edge);
   });
 
   const path = graph.aStar(startingNode, endingNode);
+  const bfsPath = graph.bfs(startingNode, endingNode);
 
   return path;
 };

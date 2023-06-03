@@ -60,13 +60,19 @@ body{
     padding: 0;
 }
 .container{
-    margin:20% auto 0 auto;
-    padding: 10px;
 
     height: 500px;
-    position: relative;
 }
 
+header{
+    color: var(--clr-white);
+    margin: 0px auto 0px auto;
+    padding-top: 5px;
+    width: 50%;
+    font-family:Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: large;
+}
 .map-container{
     width: 1317px;
     height: 888px;
@@ -109,7 +115,9 @@ body{
 }
 
 #map{
-    height: 100vh;
+    margin: 10px 0px 0px 0px;
+    height: 90vh;
+    
 }
 
 .btn {
@@ -122,7 +130,7 @@ body{
     text-transform: capitalize;
     font-size: 1rem;
     letter-spacing: var(--spacing);
-    margin-top: 2rem;
+    margin-top: 1rem;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
     cursor: pointer;

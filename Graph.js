@@ -30,13 +30,19 @@ class Graph {
   }
 
   addEdge(v, w) {
+    const oneWayVertex = [
+      283, 257, 258, 259, 260, 261, 262, 202, 47, 48, 49, 50, 301, 306, 307,
+      308, 313, 314, 315, 316,
+    ]; // array that contains one-way edges's vertexs
     const startingNode = this.getVertexByID(v);
     const endingNode = this.getVertexByID(w);
     const x = endingNode.coor[0] - startingNode.coor[0];
     const y = endingNode.coor[1] - startingNode.coor[1];
     const weight = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     this.edge.get(v).edges.push({ w, weight });
-    this.edge.get(w).edges.push({ w: v, weight });
+    if (!oneWayVertex.includes(v)) {
+      this.edge.get(w).edges.push({ w: v, weight });
+    }
   }
 
   bfs(startingNode, endingNode) {

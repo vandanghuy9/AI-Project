@@ -40,20 +40,24 @@ const drawPath = ([a, b]) => {
   const startingNode = findClosestVertex(a);
   const endingNode = findClosestVertex(b);
 
-  console.log(startingNode, endingNode);
   const pathData = algo(startingNode.id, endingNode.id);
-  pathData.unshift(b);
-  pathData.push(a);
-  path = L.polyline(pathData, {
-    delay: 400,
-    weight: 2,
-    color: "black",
-    paused: true,
-    reverse: false,
-    fill: false,
-  }).addTo(map);
-  map.addLayer(path);
-  map.fitBounds(path.getBounds());
+  if (pathData.length > 0) {
+    pathData.unshift(b);
+    pathData.push(a);
+    path = L.polyline(pathData, {
+      delay: 400,
+      weight: 2,
+      color: "blue",
+      paused: true,
+      reverse: false,
+      fill: false,
+    }).addTo(map);
+    map.addLayer(path);
+    map.fitBounds(path.getBounds());
+  } else {
+    document.getElementById("header").innerText =
+      "Can't find shortest path in area";
+  }
 };
 
 const drawEdge = ([a, b]) => {
@@ -106,25 +110,28 @@ const main = () => {
   map.addLayer(boundary);
   map.fitBounds(boundary.getBounds());
   map.on("dblclick", (e) => {
-    marker[clickNum] = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
-    clickNum++;
-    userCoor.push([e.latlng.lat, e.latlng.lng]);
-    if (clickNum === 2) {
-      drawPath(userCoor);
+    if (clickNum <= 2) {
+      marker[clickNum] = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+      clickNum++;
+      userCoor.push([e.latlng.lat, e.latlng.lng]);
+      if (clickNum === 2) {
+        drawPath(userCoor);
+        clickNum++;
+      }
     }
   });
 
-  drawEntireGraph();
-  getEdge(edgeUrl, (res) => {
-    edges = res;
-    const data = getVertex();
-    edges.forEach((edge) => {
-      console.log(edge);
-      let coor1 = data.find((vertex) => vertex.id === edge[0]).coor;
-      let coor2 = data.find((vertex) => vertex.id === edge[1]).coor;
-      drawEdge([coor1, coor2]);
-    });
-  });
+  // drawEntireGraph();
+  // getEdge(edgeUrl, (res) => {
+  //   edges = res;
+  //   const data = getVertex();
+  //   edges.forEach((edge) => {
+  //     console.log(edge);
+  //     let coor1 = data.find((vertex) => vertex.id === edge[0]).coor;
+  //     let coor2 = data.find((vertex) => vertex.id === edge[1]).coor;
+  //     drawEdge([coor1, coor2]);
+  //   });
+  // });
   document.getElementById("btn").onclick = () => {
     if (map.hasLayer(path)) {
       map.removeLayer(path);
