@@ -63,6 +63,7 @@ class Graph {
         let n = edgeVertexs[i].w;
         if (n === endingNode) {
           this.edge.get(n).previous = node;
+          this.edge.get(n).g = this.edge.get(node).g + edgeVertexs[i].weight;
           let foundVertex = n;
           let path = [];
           while (foundVertex !== null && foundVertex !== undefined) {
@@ -71,12 +72,13 @@ class Graph {
             path.push(coor.coor);
             foundVertex = this.edge.get(foundVertex).previous;
           }
-
-          return path;
+          const cost = this.edge.get(n).g;
+          return { path, cost };
         }
         if (visited[n] != true) {
           visited[n] = true;
           this.edge.get(n).previous = node;
+          this.edge.get(n).g = this.edge.get(node).g + edgeVertexs[i].weight;
           queue.push(n);
         }
       }
@@ -109,7 +111,8 @@ class Graph {
           path.push(coor.coor);
           n = this.edge.get(n).previous;
         }
-        return path;
+        const cost = this.edge.get(currentNode).g;
+        return { path, cost };
       }
       openList = this.popOpenList([...openList], openList[lowestIndex]);
       closedList.push(currentNode);
@@ -147,7 +150,7 @@ class Graph {
     const d1 = Math.abs(startingNode.coor[0] - endingNode.coor[0]);
     const d2 = Math.abs(endingNode.coor[1] - endingNode.coor[1]);
     // console.log(d1 + d2);
-    return d1 + d2;
+    return Math.sqrt(Math.pow(d1, 2) + Math.pow(d2, 2));
   }
   getVertex() {
     return data;
@@ -163,8 +166,7 @@ const algo = (startingNode, endingNode) => {
 
   const path = graph.aStar(startingNode, endingNode);
   const bfsPath = graph.bfs(startingNode, endingNode);
-
-  return path;
+  return path.cost > bfsPath.cost ? bfsPath.path : path.path;
 };
 
 export { algo };
