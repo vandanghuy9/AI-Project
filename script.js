@@ -1,5 +1,5 @@
 import { getVertex } from "./Graph.js";
-import { algo } from "./GraphAdvanced.js";
+import { algo } from "./Graph.js";
 let edges;
 let clickNum = 0;
 let userCoor = [],
@@ -27,7 +27,6 @@ const findClosestVertex = ([lat, lng]) => {
     const x = data[i].coor[0] - lat;
     const y = data[i].coor[1] - lng;
     const checkDistance = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-    // console.log(checkDistance);
     if (checkDistance < distance) {
       foundVertex = { ...data[i] };
       distance = checkDistance;
@@ -100,7 +99,6 @@ const main = () => {
 
   var boundary = L.polygon(latlngs, {
     delay: 400,
-    //   dashArray: [10, 20],
     weight: 2,
     color: "black",
     paused: true,
@@ -121,17 +119,6 @@ const main = () => {
     }
   });
 
-  // drawEntireGraph();
-  // getEdge(edgeUrl, (res) => {
-  //   edges = res;
-  //   const data = getVertex();
-  //   edges.forEach((edge) => {
-  //     console.log(edge);
-  //     let coor1 = data.find((vertex) => vertex.id === edge[0]).coor;
-  //     let coor2 = data.find((vertex) => vertex.id === edge[1]).coor;
-  //     drawEdge([coor1, coor2]);
-  //   });
-  // });
   document.getElementById("btn").onclick = () => {
     if (map.hasLayer(path)) {
       map.removeLayer(path);
@@ -144,3 +131,14 @@ const main = () => {
   };
 };
 main();
+// drawEntireGraph();
+// getEdge(edgeUrl, (res) => {
+//   edges = res;
+//   const data = getVertex();
+//   edges.forEach((edge) => {
+//     console.log(edge);
+//     let coor1 = data.find((vertex) => vertex.id === edge[0]).coor;
+//     let coor2 = data.find((vertex) => vertex.id === edge[1]).coor;
+//     drawEdge([coor1, coor2]);
+//   });
+// });
