@@ -4,7 +4,6 @@ fetch("./edge.json", { method: "GET" })
   .then((response) => response.json())
   .then((data) => {
     edges = data;
-    // console.log(edges);
   });
 class Graph {
   constructor() {
@@ -32,7 +31,7 @@ class Graph {
   addEdge(v, w) {
     const oneWayVertex = [
       283, 257, 258, 259, 260, 261, 262, 202, 47, 48, 49, 50, 301, 306, 307,
-      308, 313, 314, 315, 316,
+      308, 313, 314, 315, 316, 319,
     ];
     const startingNode = this.getVertexByID(v);
     const endingNode = this.getVertexByID(w);
@@ -46,8 +45,6 @@ class Graph {
   }
   getF(vertex) {
     // get f(x) of a vertex
-    // console.log(this.edge.get(vertex).f);
-    // console.log(vertex);
     return this.edge.get(vertex).f;
   }
   bfs(startingNode, endingNode) {
@@ -88,7 +85,6 @@ class Graph {
     return openList.filter((node) => node !== id);
   }
   aStar(startingNode, endingNode) {
-    // console.log(startingNode, endingNode);
     let openList = [];
     let closedList = [];
     openList.push(startingNode);
@@ -102,7 +98,6 @@ class Graph {
         }
       }
       const currentNode = openList[lowestIndex]; // the next node is the node that has the lowest f(x)
-      // console.log(currentNode);
       if (currentNode === endingNode) {
         let n = currentNode;
         let path = [];
@@ -158,9 +153,10 @@ class Graph {
 }
 
 const algo = (startingNode, endingNode) => {
-  const graph = new Graph();
+  const graph = new Graph(); // initialize graph
   graph.addVertex();
   edges.forEach((edge) => {
+    // add edges to graph
     graph.addEdge(...edge);
   });
 
