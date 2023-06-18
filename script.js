@@ -54,8 +54,7 @@ const drawPath = ([a, b]) => {
     map.addLayer(path);
     map.fitBounds(path.getBounds());
   } else {
-    document.getElementById("header").innerText =
-      "Can't find shortest path in area";
+    alert(`Can't find road to destination`);
   }
 };
 

@@ -32,7 +32,7 @@ class Graph {
   addEdge(v, w) {
     const oneWayVertex = [
       283, 257, 258, 259, 260, 261, 262, 202, 47, 48, 49, 50, 301, 306, 307,
-      308, 313, 314, 315, 316,
+      308, 313, 314, 315, 316, 269, 270, 271, 272, 273, 21, 323,
     ];
     const startingNode = this.getVertexByID(v);
     const endingNode = this.getVertexByID(w);
@@ -163,10 +163,12 @@ const algo = (startingNode, endingNode) => {
   edges.forEach((edge) => {
     graph.addEdge(...edge);
   });
-
   const path = graph.aStar(startingNode, endingNode);
   const bfsPath = graph.bfs(startingNode, endingNode);
-  return path.cost > bfsPath.cost ? bfsPath.path : path.path;
+  if (path && bfsPath) {
+    return path.cost > bfsPath.cost ? bfsPath.path : path.path;
+  }
+  return -1;
 };
 const getVertex = () => {
   const graph = new Graph();
